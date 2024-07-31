@@ -1,0 +1,26 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AlignAfterOpenBracket: BlockIndent
+AlignArrayOfStructures: Left
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AcrossComments: true
+AlignOperands: AlignAfterOperator
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+BreakBeforeBinaryOperators: All
+ColumnLimit: 0
+ContinuationIndentWidth: 8
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^".*'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+IndentWidth: 4
+InsertNewlineAtEOF: true
+PointerAlignment: Left
+...
