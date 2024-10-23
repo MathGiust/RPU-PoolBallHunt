@@ -11,7 +11,6 @@
 #define DISPLAY_H
 
 #include "MachineState.h"
-
 #include <Arduino.h>
 
 #define DISPLAY_OVERRIDE_BLANK_SCORE 0xFFFFFFFF

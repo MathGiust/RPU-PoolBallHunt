@@ -95,7 +95,8 @@ void MachineState::setMachineState(int machineState) {
     }
 }
 void MachineState::manageCoinDrop(byte switchHit) {
-    credits += 1;
+    if(credits < 99) credits += 1;
+    else credits = 99;
     RPU_WriteByteToEEProm(RPU_CREDITS_EEPROM_BYTE, credits);
     RPU_SetDisplayCredits(credits);
 
@@ -136,7 +137,7 @@ byte MachineState::restartGame() {
         RPU_SetDisplayBlank(1, 0);
         RPU_SetDisplayBlank(2, 0);
         RPU_SetDisplayBlank(3, 0);
-        ChimesHelper::PlayChimesSoundEffect(SOUND_EFFECT_GAME_START, true);
+        SoundHelper::playSoundEffect(SOUND_EFFECT_GAME_START);
     }
     return MACHINE_STATE_INIT_GAMEPLAY;
 }
@@ -167,8 +168,7 @@ byte MachineState::initNewBall(boolean currentStateChanged) {
     }
 
     // Reset drop targets
-    // RPU_PushToTimedSolenoidStack(SOL_LEFT_SLING, SOL_SLING_STRENGTH, Time::getBallEnteredTroughTime());
-    // RPU_PushToTimedSolenoidStack(SOL_RIGHT_SLING, SOL_SLING_STRENGTH, Time::getBallEnteredTroughTime() + 150);
+    RPU_PushToTimedSolenoidStack(SOL_DROP_TARGET_RESET, SOL_DROP_RESET_STRENGTH, Time::getBallEnteredTroughTime() + 500);
 
     // Send ball to shooter lane
     RPU_PushToTimedSolenoidStack(SOL_OUTHOLE, SOL_OUTHOLE_KICKER_STRENGTH, Time::getBallEnteredTroughTime() + 1100);
@@ -180,7 +180,7 @@ byte MachineState::initNewBall(boolean currentStateChanged) {
     currentScoreFlashing = true;
 
     // TODO Game specific new ball routine
-    currentPlayer->randomisePoolBallsLit();
+
 
     return MACHINE_STATE_NORMAL_GAMEPLAY;
 }
@@ -207,7 +207,7 @@ void MachineState::setNumberOfCreditsFromEEPROM() {
 
 
 void MachineState::setKickerSpinner(boolean value) {
-    players[currentPlayerNumber].setKickerSpinnerLit(value);
+    players[currentPlayerNumber].setGateLit(value);
 }
 
 // Getters :

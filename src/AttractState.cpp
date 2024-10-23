@@ -53,11 +53,11 @@ int Attract::run(boolean curStateChanged, MachineState& machineState) {
         case (SW_CREDIT_BUTTON):
             return machineState.manageCreditButton(MACHINE_STATE_ATTRACT);
             break;
-
         case SW_COIN_1:
         case SW_COIN_2:
         case SW_COIN_3:
             machineState.manageCoinDrop(switchHit);
+            RPU_PlaySoundDash51(15);
             break;
 
         case SW_SELF_TEST_SWITCH:
@@ -124,14 +124,11 @@ void manageNewState(MachineState machineState) {
 }
 
 void manageLightShow(MachineState machineState) {
-    //LampsHelper::showLampAnimation(animation1, 12, 100, 5, false, false, 8);
-    LampsHelper::fillLampCollection(LAMP_COLL_BANK_SHOT_ALLEY, 75);
-    LampsHelper::sweepLampCollection(LAMP_COLL_BIG_BALLS, 50, 9);
-    LampsHelper::sweepLampCollection(LAMP_COLL_UPPER_ALLEY_BALLS, 50, 3);
-    LampsHelper::sweepLampCollection(LAMP_COLL_BONUS_X, 200, 1);
-    LampsHelper::sweepLampCollection(LAMP_COLL_BOTTOM_HEAD, 70, 2);
-    LampsHelper::glowLamp(LAMP_GAME_OVER, 35);
-    LampsHelper::glowLamp(LAMP_SUPER_BONUS, 55);
+    LampsHelper::sweepLampCollection(LAMP_COLL_CENTER_GLOBE, 200, 1);
+    LampsHelper::sweepLampCollection(LAMP_COLL_SAUCER_GLOBE, 200, 1);
+    LampsHelper::sweepLampCollection(LAMP_COLL_BONUS_LAMPS, 40, 7);
+    LampsHelper::sweepLampCollection(LAMP_COLL_SIDE_TARGET, 100, 3);
+    LampsHelper::sweepLampCollection(LAMP_COLL_CENTER_SPINNER, 100, 4);
 }
 
 void manageDisplays(MachineState machineState) {

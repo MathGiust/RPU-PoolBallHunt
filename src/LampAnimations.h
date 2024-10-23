@@ -2,12 +2,12 @@
 // Created by Mathias on 25/07/2024.
 //
 
+#ifndef LAMP_ANIMATIONS_H
+#define LAMP_ANIMATIONS_H
+
 #include "Lamps.h"
 
 #include <Arduino.h>
-
-#ifndef LAMP_ANIMATIONS_H
-#define LAMP_ANIMATIONS_H
 
 #define LAMP_ANIMATION_STEPS 24
 #define NUM_LAMP_ANIMATION_BYTES 8

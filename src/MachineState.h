@@ -7,11 +7,11 @@
 
 *********************************************************************/
 
-#include "PlayerState.h"
-#include <Arduino.h>
-
 #ifndef MACHINE_STATE_H
 #define MACHINE_STATE_H
+
+#include "PlayerState.h"
+#include <Arduino.h>
 
 // Machine State definition :
 #define MACHINE_STATE_DEBUG 0

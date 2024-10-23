@@ -7,10 +7,10 @@
 
 *********************************************************************/
 
-#include <Arduino.h>
-
 #ifndef SELF_TEST_H
 #define SELF_TEST_H
+
+#include <Arduino.h>
 
 namespace SelfTestAndAudit {
 int run(int currentState, boolean curStateChanged);

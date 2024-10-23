@@ -38,23 +38,23 @@ byte BonusCountDown::run(boolean curStateChanged, MachineState& machineState) {
         }
     } else {
         // TODO implement bonus countdown :
-        byte chimeToFire = SOL_CHIME_10000;
+        //byte chimeToFire = SOL_CHIME_10000;
         switch (currentPlayer->getBonusMultiplier()) {
         case 1:
-            chimeToFire = SOL_CHIME_10000;
+            //chimeToFire = SOL_CHIME_10000;
             timeToWaitBeforeCount = 175;
             break;
         case 2:
-            chimeToFire = SOL_CHIME_10;
+            //chimeToFire = SOL_CHIME_10;
             timeToWaitBeforeCount = 150;
             break;
         case 3:
-            chimeToFire = SOL_CHIME_100;
+            //chimeToFire = SOL_CHIME_100;
             timeToWaitBeforeCount = 115;
             break;
         case 4:
         case 5:
-            chimeToFire = SOL_CHIME_1000;
+            //chimeToFire = SOL_CHIME_1000;
             timeToWaitBeforeCount = 100;
             break;
         }
@@ -65,7 +65,7 @@ byte BonusCountDown::run(boolean curStateChanged, MachineState& machineState) {
             currentPlayer->increaseScore(1000);
             countDownBonusValue -= 1;
 
-            RPU_PushToTimedSolenoidStack(chimeToFire, SOL_CHIME_STRENGTH, Time::getCurrentTime());
+            //RPU_PushToTimedSolenoidStack(chimeToFire, SOL_CHIME_STRENGTH, Time::getCurrentTime());
             LampsHelper::showBonusLamps(countDownBonusValue);
         }
     }

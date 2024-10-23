@@ -26,19 +26,19 @@ void Scoring::scoring(MachineState& machineState) {
         if (tensOfThousandStack) {
             machineState.increaseCurrentPlayerScore(10000);
             tensOfThousandStack -= 1;
-            ChimesHelper::PlayChimesSoundEffect(SOUND_EFFECT_10000_CHIME, false);
+            //SoundHelper::PlayChimesSoundEffect(SOUND_EFFECT_10000_CHIME, false);
         } else if (thousandsStack) {
             machineState.increaseCurrentPlayerScore(1000);
             thousandsStack -= 1;
-            ChimesHelper::PlayChimesSoundEffect(SOUND_EFFECT_1000_CHIME, false);
+            //SoundHelper::PlayChimesSoundEffect(SOUND_EFFECT_1000_CHIME, false);
         } else if (hundredsStack) {
             machineState.increaseCurrentPlayerScore(100);
             hundredsStack -= 1;
-            ChimesHelper::PlayChimesSoundEffect(SOUND_EFFECT_100_CHIME, false);
+            //SoundHelper::PlayChimesSoundEffect(SOUND_EFFECT_100_CHIME, false);
         } else if (tensStack) {
             machineState.increaseCurrentPlayerScore(10);
             tensStack -= 1;
-            ChimesHelper::PlayChimesSoundEffect(SOUND_EFFECT_10_CHIME, false);
+            //SoundHelper::PlayChimesSoundEffect(SOUND_EFFECT_10_CHIME, false);
         }
     }
 }

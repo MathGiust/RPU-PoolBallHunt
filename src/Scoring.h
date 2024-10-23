@@ -11,7 +11,6 @@
 #define SCORING_H
 
 #include "MachineState.h"
-
 #include "Arduino.h"
 
 namespace Scoring{

@@ -43,6 +43,8 @@ int SelfTestAndAudit::run(int currentState, boolean curStateChanged) {
 
 static int switchSelfTest(int currentState, boolean curStateChanged) {
 
+    static byte soundIndex = 0;
+    static bool AdressE = false;
     int  returnState = currentState;
     byte switchHit = RPU_PullFirstFromSwitchStack();
     byte switchTestDisplay = 0;
@@ -106,7 +108,8 @@ static int switchSelfTest(int currentState, boolean curStateChanged) {
                 for(byte count = 0; count <= 3; count++) {
                     RPU_SetDisplay(count, solenoidInTestNumber, true);
                 }
-                if (solenoidInTestNumber <= NUMBER_OF_SOL) solenoidInTestNumber++;
+                // NUMBER_OF_SOL is the max test number
+                if (solenoidInTestNumber < NUMBER_OF_SOL) solenoidInTestNumber++;
                 else solenoidInTestNumber = 1;
             }
             break;
@@ -126,6 +129,13 @@ static int switchSelfTest(int currentState, boolean curStateChanged) {
             break;
         case MACHINE_STATE_TEST_SOUNDS:
             // TODO : Implement Sound Test
+                if(curStateChanged) RPU_SetDisplay(1, soundIndex, true);
+                if(switchHit == SW_CREDIT_BUTTON) {
+                    RPU_PlaySoundDash51(soundIndex);
+                    if(soundIndex < 33 ) soundIndex++;
+                    else soundIndex = 0;
+                    RPU_SetDisplay(1, soundIndex);
+                }
             break;
 
             // AUDITS

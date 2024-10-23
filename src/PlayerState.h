@@ -13,7 +13,7 @@ Version : 1.00
 #include "Arduino.h"
 
 #define MAX_BONUS_MULTIPLIER 5
-#define MAX_DISPLAY_BONUS 16
+#define MAX_DISPLAY_BONUS 49
 
 #define NUMBER_OF_MODES 3
 
@@ -30,18 +30,16 @@ private:
     boolean modePlayed[NUMBER_OF_MODES];
     boolean modeQualified[NUMBER_OF_MODES];
 
-    // 8 Ball specific
-    boolean kickerSpinnerLit;
-    boolean superBonus;
-    boolean eightBallQualified;
-    boolean topRollOversCompleted;
-    boolean plainBallsLit[7];
-    boolean stripBallsLit[7];
-    byte    bankShotProgress;
+    // Harlem specific
+    boolean gateLit;
+    boolean leftSpinnerBonusAdvanceLit;
+    boolean globeLetters[5];
+    byte    superBonus;
+    byte    leftSpinnerValue;
+    byte    centerSpinnerAdv;
 
 public:
     PlayerState();
-
 
     // Player initialize
     void resetPlayer();
@@ -59,7 +57,9 @@ public:
     // Setters :
     void setScore(score_t newScore);
     void setBonusValue(byte newBonus);
-    void setSuperBonus(boolean superBonus);
+    void setSuperBonus(byte superBonus);
+    void setModePlayed(byte modeNumber, boolean value);
+    void setModeQualified(byte modeNumber, boolean value);
 
     // Getters :
     score_t getScore() const;
@@ -67,42 +67,26 @@ public:
     byte    getBonusMultiplier() const;
     byte    getBonus() const;
 
-    //
-    // Game specific
-    //
-    boolean checkSuperBonus() const;
-
-    // Getters :
-    boolean getEightBallQualified() const;
-    boolean getTopRollOversCompleted() const;
-    boolean getKickerSpinnerLit() const;
-    boolean getPlainBallsLit(byte index);
-    boolean getStripBallsLit(byte index);
+    // Game Modes
+    void    checkModeQualified();
     boolean getModePlayed(byte modeNumber) const;
     boolean getAnyModeQualified() const;
     boolean getModeQualified(byte modeNumber) const;
-    byte    getBankShotProgress() const;
 
-    // Setters :
-    void setPlainBallsLit(byte index, boolean value);
-    void setStripBallsLit(byte index, boolean value);
-    void setEightBallQualified(boolean value);
-    void setTopRollOversCompleted(boolean value);
-    void setBankShotProgress(byte value);
-    void setKickerSpinnerLit(boolean value);
-    void setModePlayed(byte modeNumber, boolean value);
-    void setModeQualified(byte modeNumber, boolean value);
+    //
+    // Game specific
+    //
 
-    // Game Modes
-    void checkModeQualified();
+    boolean checkSuperBonus() const;
+    boolean getGateLit() const;
+    void switchLitBonusAdvance();
 
-    // Pool balls
-    void resetPoolBallsLit();
-    void randomisePoolBallsLit();
+    // Getters
+    byte getLeftSpinnerValue() const;
+    bool getLeftSpinnerBonusAdvanceLit() const;
 
-    // Bank shot
-    void bankShotAdvance();
-    void bankShotReset();
+    // Setters
+    void setGateLit(boolean value);
 };
 
 /*

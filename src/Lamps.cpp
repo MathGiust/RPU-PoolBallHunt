@@ -18,211 +18,51 @@ static byte* lampsPointer(byte lampCollection);
 static byte  getLampCollectionSize(byte lampCollectionNumber);
 byte**       animationPointer(int index);
 
-// LAMP COLL 0
-static byte singleDigitBonusLamps[] = {
-        LAMP_UNUSED,
-        LAMP_BIG_1,
-        LAMP_BIG_2,
-        LAMP_BIG_3,
-        LAMP_BIG_4,
-        LAMP_BIG_5,
-        LAMP_BIG_6,
-        LAMP_BIG_7,
-        LAMP_BIG_8,
-        LAMP_BIG_9,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 1
-static byte bigBallsLamps[] = {
-        LAMP_BIG_1,
-        LAMP_BIG_2,
-        LAMP_BIG_3,
-        LAMP_BIG_4,
-        LAMP_BIG_5,
-        LAMP_BIG_6,
-        LAMP_BIG_7,
-        LAMP_BIG_8,
-        LAMP_BIG_9,
-        LAMP_BIG_10,
-        LAMP_BIG_11,
-        LAMP_BIG_12,
-        LAMP_BIG_13,
-        LAMP_BIG_14,
-        LAMP_BIG_15,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 2
-static byte smallBallsLamps[] = {
-        LAMP_SMALL_1,
-        LAMP_SMALL_2,
-        LAMP_SMALL_3,
-        LAMP_SMALL_4,
-        LAMP_SMALL_5,
-        LAMP_SMALL_6,
-        LAMP_SMALL_7,
-        LAMP_SMALL_8,
-        LAMP_SMALL_9,
-        LAMP_SMALL_10,
-        LAMP_SMALL_11,
-        LAMP_SMALL_12,
-        LAMP_SMALL_13,
-        LAMP_SMALL_14,
-        LAMP_SMALL_15,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 3
-static byte evenPlayerBigBallsLamps[] = {
-        LAMP_BIG_1,
-        LAMP_BIG_2,
-        LAMP_BIG_3,
-        LAMP_BIG_4,
-        LAMP_BIG_5,
-        LAMP_BIG_6,
-        LAMP_BIG_7,
-        LAMP_BIG_8,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 4
-static byte oddPlayerBigBallsLamps[] = {
-        LAMP_BIG_9,
-        LAMP_BIG_10,
-        LAMP_BIG_11,
-        LAMP_BIG_12,
-        LAMP_BIG_13,
-        LAMP_BIG_14,
-        LAMP_BIG_15,
-        LAMP_BIG_8,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 5
-static byte evenPlayerSmallBallsLamps[] = {
-        LAMP_SMALL_1,
-        LAMP_SMALL_2,
-        LAMP_SMALL_3,
-        LAMP_SMALL_4,
-        LAMP_SMALL_5,
-        LAMP_SMALL_6,
-        LAMP_SMALL_7,
-        LAMP_SMALL_8,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 6
-static byte oddPlayerSmallBallsLamps[] = {
-        LAMP_SMALL_9,
-        LAMP_SMALL_10,
-        LAMP_SMALL_11,
-        LAMP_SMALL_12,
-        LAMP_SMALL_13,
-        LAMP_SMALL_14,
-        LAMP_SMALL_15,
-        LAMP_SMALL_8,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 7
-static byte upperAlleyBallsLamps[] = {
-        LAMP_SMALL_1,
-        LAMP_SMALL_2,
-        LAMP_SMALL_3,
-        LAMP_SMALL_4,
-        LAMP_SMALL_9,
-        LAMP_SMALL_10,
-        LAMP_SMALL_11,
-        LAMP_SMALL_12,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 8
-static byte bankShotAllLamps[] = {
-        LAMP_BANK_SHOT_300,
-        LAMP_BANK_SHOT_600,
-        LAMP_BANK_SHOT_900,
-        LAMP_BANK_SHOT_1200,
-        LAMP_BANK_SHOT_1500,
-        LAMP_BANK_SHOT_5000,
-        LAMP_LEFT_ARROW,
-        LAMP_RIGHT_ARROW,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 9
-static byte bankShotLampsAlleyLamps[] = {
-        LAMP_BANK_SHOT_300,
-        LAMP_BANK_SHOT_600,
-        LAMP_BANK_SHOT_900,
-        LAMP_BANK_SHOT_1200,
-        LAMP_BANK_SHOT_1500,
-        LAMP_BANK_SHOT_5000,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 10
-static byte bankShotArrowsLamps[] = {
-        LAMP_LEFT_ARROW,
-        LAMP_RIGHT_ARROW,
-        LAMP_TERMINATOR
-};
-
-// LAMP COLL 11
-static byte bonusXLamps[] = {
-        LAMP_2X_BONUS,
-        LAMP_3X_BONUS,
-        LAMP_5X_BONUS,
-        LAMP_TERMINATOR
-};
+//
+//  LAMP COLLECTIONS
+//
 
 static byte descendingBonusValues[] = {
-        15,
-        14,
-        13,
-        12,
-        11,
-        10,
-        9,
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2,
-        1,
+        40, 30, 20, 10,
+        9, 8, 7, 6,
+        5, 4, 3, 2,
+        1
 };
 
-static byte descendingBonusLamps[]{
-        LAMP_BIG_15,
-        LAMP_BIG_14,
-        LAMP_BIG_13,
-        LAMP_BIG_12,
-        LAMP_BIG_11,
-        LAMP_BIG_10,
-        LAMP_BIG_9,
-        LAMP_BIG_8,
-        LAMP_BIG_7,
-        LAMP_BIG_6,
-        LAMP_BIG_5,
-        LAMP_BIG_4,
-        LAMP_BIG_3,
-        LAMP_BIG_2,
-        LAMP_BIG_1,
-        LAMP_TERMINATOR
+static byte descendingBonusLamps[] = {
+        LAMP_BONUS_40K, LAMP_BONUS_30K, LAMP_BONUS_20K, LAMP_BONUS_10K,
+        LAMP_BONUS_9K, LAMP_BONUS_8K, LAMP_BONUS_7K, LAMP_BONUS_6K,
+        LAMP_BONUS_5K, LAMP_BONUS_4K, LAMP_BONUS_3K, LAMP_BONUS_2K,
+        LAMP_BONUS_1K, LAMP_TERMINATOR
 };
 
-static byte bottomHeadLamps[]{
-        LAMP_1_PLAYER,
-        LAMP_2_PLAYER,
-        LAMP_3_PLAYER,
-        LAMP_4_PLAYER,
-        LAMP_SAME_PLAYER_SHOOTS_AGAIN,
-        LAMP_TILT,
-        LAMP_TERMINATOR
+static byte centerGlobe[] = {
+        LAMP_CENTER_G, LAMP_CENTER_L, LAMP_CENTER_O, LAMP_CENTER_B, LAMP_CENTER_E, LAMP_TERMINATOR
 };
+
+static byte saucerGlobe[] = {
+    LAMP_SAUCER_G, LAMP_SAUCER_L, LAMP_SAUCER_O, LAMP_SAUCER_B, LAMP_SAUCER_E, LAMP_TERMINATOR
+};
+
+static byte sideTargets[] = {
+    LAMP_SIDE_TARGET_1, LAMP_SIDE_TARGET_2, LAMP_SIDE_TARGET_3, LAMP_SIDE_TARGET_4, LAMP_SIDE_TARGET_5, LAMP_TERMINATOR
+};
+
+static byte spinnerValues[] = {
+    LAMP_LEFT_SPINNER_100, LAMP_LEFT_SPINNER_200, LAMP_LEFT_SPINNER_1000, LAMP_LEFT_SPINNER_2000, LAMP_TERMINATOR
+};
+
+static byte centerSpinnerLamps[] = {
+    LAMP_SPINNERS_1, LAMP_SPINNERS_2, LAMP_SPINNERS_3, LAMP_SPINNERS_4, LAMP_SPINNERS_5, LAMP_TERMINATOR
+};
+
+static byte dunkShotLamps[] = {
+    LAMP_DUNK_SHOT_EB, LAMP_DUNK_SHOT_GATE, LAMP_DUNK_SHOT_5K, LAMP_DUNK_SHOT_SPECIAL, LAMP_TERMINATOR
+};
+
+//
+//  END OF LAMP COLLECTIONS
+//
 
 // Turn off all lamps
 void LampsHelper::hideAllLamps() {
@@ -242,7 +82,7 @@ void LampsHelper::hideAllPlayfieldLamps() {
             continue;
         if (count == LAMP_MATCH)
             continue;
-        if (count == LAMP_SHOOT_AGAIN)
+        if (count == LAMP_SAME_PLAYER_SHOOTS_AGAIN)
             continue;
         if (count == LAMP_TILT)
             continue;
@@ -299,9 +139,9 @@ void LampsHelper::showBonusLamps(byte bonusValue) {
 // Show Bonus-X lamps
 void LampsHelper::showBonusMultiplierLamps(byte value, byte flashPeriod) {
     if (value < 2)
-        hideLamps(LAMP_COLL_BONUS_X);
-    if (value >= 2)
-        showLamp(LAMP_2X_BONUS, flashPeriod);
+        // hideLamps(LAMP_COLL_BONUS_X);
+        if (value >= 2)
+            showLamp(LAMP_2X_BONUS, flashPeriod);
     if (value >= 3)
         showLamp(LAMP_3X_BONUS, flashPeriod);
     if (value >= 5)
@@ -334,47 +174,26 @@ void LampsHelper::showOneLampFromCollection(byte lampCollection, byte indexToSho
 static byte* lampsPointer(byte lampCollection) {
     byte* pointer;
     switch (lampCollection) {
-    case LAMP_COLL_BONUS_ALL:
-        pointer = singleDigitBonusLamps;
-        break;
-    case LAMP_COLL_BIG_BALLS:
-        pointer = bigBallsLamps;
-        break;
-    case LAMP_COLL_SMALL_BALLS:
-        pointer = smallBallsLamps;
-        break;
-    case LAMP_COLL_EVEN_PLAYER_BIG_BALLS:
-        pointer = evenPlayerBigBallsLamps;
-        break;
-    case LAMP_COLL_ODD_PLAYER_BIG_BALLS:
-        pointer = oddPlayerBigBallsLamps;
-        break;
-    case LAMP_COLL_EVEN_PLAYER_SMALL_BALLS:
-        pointer = evenPlayerSmallBallsLamps;
-        break;
-    case LAMP_COLL_ODD_PLAYER_SMALL_BALLS:
-        pointer = oddPlayerSmallBallsLamps;
-        break;
-    case LAMP_COLL_UPPER_ALLEY_BALLS:
-        pointer = upperAlleyBallsLamps;
-        break;
-    case LAMP_COLL_BANK_SHOT_ALL:
-        pointer = bankShotAllLamps;
-        break;
-    case LAMP_COLL_BANK_SHOT_ALLEY:
-        pointer = bankShotLampsAlleyLamps;
-        break;
-    case LAMP_COLL_BANK_SHOT_ARROWS:
-        pointer = bankShotArrowsLamps;
-        break;
-    case LAMP_COLL_BONUS_X:
-        pointer = bonusXLamps;
-        break;
-    case LAMP_COLL_BONUS_DESCENDING:
+    case LAMP_COLL_BONUS_LAMPS:
         pointer = descendingBonusLamps;
         break;
-    case LAMP_COLL_BOTTOM_HEAD:
-        pointer = bottomHeadLamps;
+    case LAMP_COLL_CENTER_GLOBE:
+        pointer = centerGlobe;
+        break;
+    case LAMP_COLL_SAUCER_GLOBE:
+        pointer = saucerGlobe;
+        break;
+    case LAMP_COLL_SIDE_TARGET:
+        pointer = sideTargets;
+        break;
+    case LAMP_COLL_SPINNER_VALUES:
+        pointer = spinnerValues;
+        break;
+    case LAMP_COLL_CENTER_SPINNER:
+        pointer = centerSpinnerLamps;
+        break;
+    case LAMP_COLL_DUNK_SHOT:
+        pointer = dunkShotLamps;
         break;
     default:
         static byte EmptyCollection[]{};
@@ -386,47 +205,26 @@ static byte* lampsPointer(byte lampCollection) {
 static byte getLampCollectionSize(byte lampCollectionNumber) {
     byte lampCollectionSize;
     switch (lampCollectionNumber) {
-    case LAMP_COLL_BONUS_ALL:
-        lampCollectionSize = sizeof(singleDigitBonusLamps);
-        break;
-    case LAMP_COLL_BIG_BALLS:
-        lampCollectionSize = sizeof(bigBallsLamps);
-        break;
-    case LAMP_COLL_SMALL_BALLS:
-        lampCollectionSize = sizeof(smallBallsLamps);
-        break;
-    case LAMP_COLL_EVEN_PLAYER_BIG_BALLS:
-        lampCollectionSize = sizeof(evenPlayerBigBallsLamps);
-        break;
-    case LAMP_COLL_ODD_PLAYER_BIG_BALLS:
-        lampCollectionSize = sizeof(oddPlayerBigBallsLamps);
-        break;
-    case LAMP_COLL_EVEN_PLAYER_SMALL_BALLS:
-        lampCollectionSize = sizeof(evenPlayerSmallBallsLamps);
-        break;
-    case LAMP_COLL_ODD_PLAYER_SMALL_BALLS:
-        lampCollectionSize = sizeof(oddPlayerSmallBallsLamps);
-        break;
-    case LAMP_COLL_UPPER_ALLEY_BALLS:
-        lampCollectionSize = sizeof(upperAlleyBallsLamps);
-        break;
-    case LAMP_COLL_BANK_SHOT_ALL:
-        lampCollectionSize = sizeof(bankShotAllLamps);
-        break;
-    case LAMP_COLL_BANK_SHOT_ALLEY:
-        lampCollectionSize = sizeof(bankShotLampsAlleyLamps);
-        break;
-    case LAMP_COLL_BANK_SHOT_ARROWS:
-        lampCollectionSize = sizeof(bankShotArrowsLamps);
-        break;
-    case LAMP_COLL_BONUS_X:
-        lampCollectionSize = sizeof(bonusXLamps);
-        break;
-    case LAMP_COLL_BONUS_DESCENDING:
+    case LAMP_COLL_BONUS_LAMPS:
         lampCollectionSize = sizeof(descendingBonusLamps);
         break;
-    case LAMP_COLL_BOTTOM_HEAD:
-        lampCollectionSize = sizeof(bottomHeadLamps);
+    case LAMP_COLL_CENTER_GLOBE:
+        lampCollectionSize = sizeof(centerGlobe);
+        break;
+    case LAMP_COLL_SAUCER_GLOBE:
+        lampCollectionSize = sizeof(saucerGlobe);
+        break;
+    case LAMP_COLL_SIDE_TARGET:
+        lampCollectionSize = sizeof(sideTargets);
+        break;
+    case LAMP_COLL_SPINNER_VALUES:
+        lampCollectionSize = sizeof(spinnerValues);
+        break;
+    case LAMP_COLL_CENTER_SPINNER:
+        lampCollectionSize = sizeof(centerSpinnerLamps);
+        break;
+    case LAMP_COLL_DUNK_SHOT:
+        lampCollectionSize = sizeof(dunkShotLamps);
         break;
     default:
         lampCollectionSize = 0;
@@ -514,11 +312,10 @@ void LampsHelper::sweepLampCollection(byte lampColNum, byte stepTime, byte offse
 }
 
 void LampsHelper::fillLampCollection(byte lampColNum, byte stepTime) {
-    byte  lampCollectionSize = getLampCollectionSize(lampColNum);
-    byte  currentStep = ((Time::getCurrentTime() - Time::getLastLampAnimUpdateTime()) / stepTime) % lampCollectionSize;
-    if(currentStep < (lampCollectionSize - 1)) showLampFromCollection(lampColNum, currentStep, 0, 0);
+    byte lampCollectionSize = getLampCollectionSize(lampColNum);
+    byte currentStep = ((Time::getCurrentTime() - Time::getLastLampAnimUpdateTime()) / stepTime) % lampCollectionSize;
+    if (currentStep < (lampCollectionSize - 1)) showLampFromCollection(lampColNum, currentStep, 0, 0);
     else hideLamps(lampColNum);
-
 }
 
 void LampsHelper::glowLamp(byte lamp, int stepTime) {

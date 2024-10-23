@@ -8,9 +8,8 @@
 
 #include "PlayerState.h"
 
-#include "PinballMachineBase.h"
-
 #include "GameModes.h"
+#include "PinballMachineBase.h"
 #include "Scoring.h"
 
 #include <Arduino.h>
@@ -21,13 +20,12 @@ PlayerState::PlayerState()
       bonus(0),
       modePlayed{},
       modeQualified{},
-      kickerSpinnerLit(false),
-      superBonus(false),
-      eightBallQualified(false),
-      topRollOversCompleted(false),
-      plainBallsLit{},
-      stripBallsLit{},
-      bankShotProgress(0) {}
+      gateLit(false),
+      leftSpinnerBonusAdvanceLit(false),
+      globeLetters{},
+      superBonus(0),
+      leftSpinnerValue(0),
+      centerSpinnerAdv(0) {}
 
 // Setters:
 void PlayerState::setScore(score_t newScore) {
@@ -85,15 +83,15 @@ static byte modeThresholdValues[] = {
 void PlayerState::checkModeQualified() {
     for (byte modeInCheck = 0; modeInCheck < NUMBER_OF_MODES; modeInCheck++) {
         if ((this->bonus >= modeThresholdValues[modeInCheck]) && (!modePlayed[modeInCheck])) {
-            if(DEBUG_MESSAGES) Serial.write("Mode Qualified\n\r");
+            if (DEBUG_MESSAGES) Serial.write("Mode Qualified\n\r");
             modeQualified[modeInCheck] = true;
-        }
-        else modeQualified[modeInCheck] = false;
+        } else modeQualified[modeInCheck] = false;
     }
 }
 boolean PlayerState::getAnyModeQualified() const {
     boolean returnState = false;
-    for(bool modeInCheck : modeQualified) if(modeInCheck) returnState = modeInCheck;
+    for (bool modeInCheck : modeQualified)
+        if (modeInCheck) returnState = modeInCheck;
     return returnState;
 }
 
@@ -109,128 +107,55 @@ boolean PlayerState::getModePlayed(byte modeNumber) const {
 //
 
 void PlayerState::resetPlayer() {
+    // TODO : Reset player for new game
     score = 0;
     bonusMultiplier = 1;
     bonus = 0;
 
-    kickerSpinnerLit = false;
+    // Game specific variables
+    gateLit = false;
     superBonus = false;
-    eightBallQualified = false;
-    topRollOversCompleted = false;
-    bankShotProgress = 0;
-    for(byte count = 0; count < NUMBER_OF_MODES; count++) {
+    for (byte count = 0; count < NUMBER_OF_MODES; count++) {
         modeQualified[count] = false;
         modePlayed[count] = false;
     }
 }
 void PlayerState::initNewBall() {
+    // TODO : Init new ball
     bonusMultiplier = 1;
-    kickerSpinnerLit = false;
-    bankShotReset();
-    if (checkSuperBonus()) {
-        superBonus = true;
-    }
+    gateLit = false;
+    leftSpinnerBonusAdvanceLit = true;
 }
+
+void PlayerState::switchLitBonusAdvance() {
+    if(leftSpinnerBonusAdvanceLit) leftSpinnerBonusAdvanceLit = false;
+    else leftSpinnerBonusAdvanceLit = true;
+}
+
 
 //
 //  Setters :
 //
-void PlayerState::setPlainBallsLit(byte index, boolean value) {
-    plainBallsLit[index] = value;
+
+void PlayerState::setGateLit(boolean value) {
+    gateLit = value;
 }
-void PlayerState::setStripBallsLit(byte index, boolean value) {
-    stripBallsLit[index] = value;
-}
-void PlayerState::setKickerSpinnerLit(boolean value) {
-    kickerSpinnerLit = value;
-}
-void PlayerState::setSuperBonus(boolean value) {
+void PlayerState::setSuperBonus(byte value) {
     PlayerState::superBonus = value;
-}
-void PlayerState::setEightBallQualified(boolean value) {
-    PlayerState::eightBallQualified = value;
-}
-void PlayerState::setTopRollOversCompleted(boolean value) {
-    PlayerState::topRollOversCompleted = value;
-}
-void PlayerState::setBankShotProgress(byte value) {
-    PlayerState::bankShotProgress = value;
 }
 
 //
 //  Getters
 //
 
-boolean PlayerState::getKickerSpinnerLit() const {
-    return kickerSpinnerLit;
-}
-byte PlayerState::getBankShotProgress() const {
-    return bankShotProgress;
-}
-boolean PlayerState::getTopRollOversCompleted() const {
-    return topRollOversCompleted;
-}
-boolean PlayerState::getEightBallQualified() const {
-    return eightBallQualified;
-}
-boolean PlayerState::getSuperBonus() const {
-    return superBonus;
-}
-boolean PlayerState::getPlainBallsLit(byte index) {
-    return plainBallsLit[index];
-}
-boolean PlayerState::getStripBallsLit(byte index) {
-    return stripBallsLit[index];
+boolean PlayerState::getGateLit() const {
+    return gateLit;
 }
 
-void PlayerState::bankShotAdvance() {
-    switch (bankShotProgress) {
-    case 0:
-        Scoring::addToHundredStack(3);
-        break;
-    case 1:
-        Scoring::addToHundredStack(6);
-        bonusMultiplier = 2;
-        break;
-    case 2:
-        Scoring::addToHundredStack(9);
-        bonusMultiplier = 3;
-        break;
-    case 3:
-        Scoring::addToThousandsStack(1);
-        Scoring::addToHundredStack(2);
-        bonusMultiplier = 5;
-        break;
-    case 4:
-        Scoring::addToThousandsStack(1);
-        Scoring::addToHundredStack(5);
-        break;
-    case 5:
-        Scoring::addToThousandsStack(5);
-        break;
-    }
-    if (bankShotProgress < 5) bankShotProgress++;
+byte PlayerState::getLeftSpinnerValue() const {
+    return leftSpinnerValue;
 }
-void PlayerState::bankShotReset() {
-    bankShotProgress = 0;
-}
-boolean PlayerState::checkSuperBonus() const {
-    return (bonus == 8);
-}
-void PlayerState::resetPoolBallsLit() {
-    for (byte count = 0; count <= 6; count++) {
-        plainBallsLit[count] = false;
-        stripBallsLit[count] = false;
-    }
-}
-void PlayerState::randomisePoolBallsLit() {
-    for (byte count = 0; count <= 6; count++) {
-        // Reset ball value
-        plainBallsLit[count] = false;
-        stripBallsLit[count] = false;
 
-        // randomise ball value
-        plainBallsLit[count] = (rand() % 2);
-        stripBallsLit[count] = !plainBallsLit[count];
-    }
+bool PlayerState::getLeftSpinnerBonusAdvanceLit() const {
+    return leftSpinnerBonusAdvanceLit;
 }

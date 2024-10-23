@@ -1,6 +1,6 @@
 
-
 #include "AttractState.h"
+#include "AudioHandler.h"
 #include "BonusCountDown.h"
 #include "Display.h"
 #include "Gameplay.h"
@@ -10,11 +10,13 @@
 #include "RPU.h"
 #include "RPU_Config.h"
 #include "SelfTestAndAudit.h"
-#include "sound.h"
 #include "Time.h"
+#include "sound.h"
 
 #include <Arduino.h>
+#include <RPU.h>
 
+AudioHandler audio;
 MachineState machineState;
 
 PlayfieldAndCabinetSwitch g_solenoidAssociatedSwitches[] = {
@@ -22,7 +24,9 @@ PlayfieldAndCabinetSwitch g_solenoidAssociatedSwitches[] = {
         {SW_LEFT_SLING,    SOL_LEFT_SLING,    SOL_SLING_STRENGTH },
         {SW_LEFT_BUMPER,   SOL_LEFT_BUMPER,   SOL_BUMPER_STRENGTH},
         {SW_RIGHT_BUMPER,  SOL_RIGHT_BUMPER,  SOL_BUMPER_STRENGTH},
-        {SW_BOTTOM_BUMPER, SOL_BOTTOM_BUMPER, SOL_BUMPER_STRENGTH}
+        {SW_BOTTOM_BUMPER, SOL_BOTTOM_BUMPER, SOL_BUMPER_STRENGTH},
+        {SW_GLOBE_SAUCER,  SOL_GLOBE_SAUCER,  SOL_SAUCER_STRENGTH},
+        {SW_TARGET_SAUCER, SOL_TARGET_SAUCER, SOL_SAUCER_STRENGTH}
 };
 
 void setup() {
@@ -38,7 +42,7 @@ void setup() {
     );
 
     // Set up the chips and interrupts
-    unsigned long initResult = RPU_InitializeMPU(RPU_CMD_BOOT_ORIGINAL_IF_CREDIT_RESET | RPU_CMD_BOOT_ORIGINAL_IF_NOT_SWITCH_CLOSED | RPU_CMD_INIT_AND_RETURN_EVEN_IF_ORIGINAL_CHOSEN | RPU_CMD_PERFORM_MPU_TEST, SW_CREDIT_BUTTON);
+    unsigned long initResult = RPU_InitializeMPU(RPU_CMD_BOOT_ORIGINAL_IF_NOT_SWITCH_CLOSED | RPU_CMD_BOOT_ORIGINAL_IF_CREDIT_RESET, SW_CREDIT_BUTTON);
 
     if (initResult & RPU_RET_ORIGINAL_CODE_REQUESTED) {
         if (DEBUG_MESSAGES)
@@ -58,7 +62,7 @@ void setup() {
 
     RPU_DisableSolenoidStack();
     RPU_SetDisableFlippers(true);
-    RPU_SetCoinLockout(false);
+    RPU_SetCoinLockout(true);
 
     machineState.setMachineState(MACHINE_STATE_ATTRACT);
     machineState.setHighScore((score_t)RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE, 0));
@@ -73,7 +77,15 @@ void setup() {
     DisplayHelper::showPlayerScore(3, RPU_OS_MINOR_VERSION);
 
     Time::updateCurrentTime();
-    ChimesHelper::PlayChimesSoundEffect(SOUND_EFFECT_STARTUP, true);
+    //SoundHelper::playSoundEffect(SOUND_EFFECT_STARTUP);
+    delay(5000);
+    RPU_PlaySoundDash51(15);
+    /*
+    delay(1000);
+    RPU_PlaySoundDash51(27);
+    delay(1000);
+    RPU_PlaySoundDash51(27);
+    */
 }
 
 void loop() {
@@ -123,4 +135,5 @@ void loop() {
 
     RPU_ApplyFlashToLamps(Time::getCurrentTime());
     RPU_UpdateTimedSolenoidStack(Time::getCurrentTime());
+    SoundHelper::UpdateTimedSoundStack(Time::getCurrentTime());
 }

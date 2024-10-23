@@ -7,12 +7,11 @@
 
 *********************************************************************/
 
-#include "MachineState.h"
-
-#include <Arduino.h>
-
 #ifndef GAMEMODES_H
 #define GAMEMODES_H
+
+#include "MachineState.h"
+#include <Arduino.h>
 
 // Game modes ID
 #define GAME_MODE_SKILL_SHOT 0
