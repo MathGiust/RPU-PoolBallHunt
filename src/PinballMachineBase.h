@@ -80,7 +80,7 @@
 #define SOL_BUMPER_STRENGTH 3
 #define SOL_CHIME_STRENGTH 2
 #define SOL_SAUCER_STRENGTH 5
-#define SOL_DROP_RESET_STRENGTH 9
+#define SOL_DROP_RESET_STRENGTH 15
 
 // SWITCHES_WITH_TRIGGERS are for switches that will automatically
 // activate a solenoid (like in the case of a chime that rings on a rollover)
