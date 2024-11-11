@@ -2263,14 +2263,16 @@ void RPU_PlaySoundDash51(byte soundByte) {
     // wait 180 microseconds
     delayMicroseconds(180);
 
+    // Put sound latch low
+    RPU_DataWrite(ADDRESS_U11_B_CONTROL, 0x34);
+
     // Restore the original solenoid byte
     RPU_DataWrite(ADDRESS_U11_B, oldSolenoidControlByte);
 
     // Restore the original display byte
     RPU_DataWrite(ADDRESS_U11_A, oldDisplayByte);
 
-    // Put sound latch low
-    RPU_DataWrite(ADDRESS_U11_B_CONTROL, 0x34);
+
 
     interrupts();
 }

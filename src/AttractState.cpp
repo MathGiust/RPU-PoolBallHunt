@@ -10,14 +10,15 @@
 #include "AttractState.h"
 
 #include "Display.h"
-#include "Lamps.h"
 #include "LampAnimations.h"
+#include "Lamps.h"
 #include "PinballMachineBase.h"
 #include "RPU.h"
 #include "RPU_Config.h"
 #include "Time.h"
 
 #include <Arduino.h>
+#include <sound.h>
 
 boolean featureShowRunning;
 boolean updateScores;
@@ -35,6 +36,7 @@ static void manageNewState(MachineState machineState);
 
 static void manageDisplays(MachineState machineState);
 static void manageLightShow(MachineState machineState);
+static void manageSoundShow(MachineState machineState);
 
 //
 //  Public :
@@ -45,19 +47,21 @@ int Attract::run(boolean curStateChanged, MachineState& machineState) {
 
     manageLightShow(machineState);
     manageDisplays(machineState);
+    //manageSoundShow(machineState);
 
     byte switchHit;
     while ((switchHit = RPU_PullFirstFromSwitchStack()) != SWITCH_STACK_EMPTY) {
         switch (switchHit) {
 
         case (SW_CREDIT_BUTTON):
+            RPU_PlaySoundDash51(DASH51_BACKGROUND_STOP);
             return machineState.manageCreditButton(MACHINE_STATE_ATTRACT);
             break;
         case SW_COIN_1:
         case SW_COIN_2:
         case SW_COIN_3:
             machineState.manageCoinDrop(switchHit);
-            RPU_PlaySoundDash51(15);
+            RPU_PlaySoundDash51(DASH51_SHORT_LOW_DRONE);
             break;
 
         case SW_SELF_TEST_SWITCH:
@@ -126,10 +130,18 @@ void manageNewState(MachineState machineState) {
 void manageLightShow(MachineState machineState) {
     LampsHelper::sweepLampCollection(LAMP_COLL_CENTER_GLOBE, 200, 1);
     LampsHelper::sweepLampCollection(LAMP_COLL_SAUCER_GLOBE, 200, 1);
-    LampsHelper::sweepLampCollection(LAMP_COLL_BONUS_LAMPS, 40, 7);
+    LampsHelper::sweepLampCollection(LAMP_COLL_BONUS_LAMPS, 50, 7);
     LampsHelper::sweepLampCollection(LAMP_COLL_SIDE_TARGET, 100, 3);
     LampsHelper::sweepLampCollection(LAMP_COLL_CENTER_SPINNER, 100, 4);
 }
+
+void manageSoundShow(MachineState machineState) {
+    if(Time::getCurrentTime() - Time::getLastSoundPlayedTime() > 750) {
+        Time::updateLastSoundPlayedTime();
+        RPU_PlaySoundDash51(DASH51_WHISTLE_RISER);
+    }
+}
+
 
 void manageDisplays(MachineState machineState) {
     unsigned long cycleSeed = Time::getCurrentTime() / 5000; // 5 seconds

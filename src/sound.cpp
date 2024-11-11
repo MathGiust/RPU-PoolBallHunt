@@ -85,7 +85,7 @@ bool SoundHelper::pushToTimedSoundStack(const unsigned short soundIndex, bool ad
 void SoundHelper::UpdateTimedSoundStack(unsigned long currentTime) {
     for (int count = 0; count < TIMED_SOUND_STACK_SIZE; count++) {
         if (timedSoundStack[count].inUse && timedSoundStack[count].pushTime < currentTime) {
-            RPU_PlaySoundDash32(timedSoundStack[count].soundNumber, timedSoundStack[count].address_E);
+            //RPU_PlaySoundDash32(timedSoundStack[count].soundNumber, timedSoundStack[count].address_E);
             timedSoundStack[count].inUse = false;
         }
     }

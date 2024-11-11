@@ -132,9 +132,9 @@ static int switchSelfTest(int currentState, boolean curStateChanged) {
                 if(curStateChanged) RPU_SetDisplay(1, soundIndex, true);
                 if(switchHit == SW_CREDIT_BUTTON) {
                     RPU_PlaySoundDash51(soundIndex);
-                    if(soundIndex < 33 ) soundIndex++;
-                    else soundIndex = 0;
                     RPU_SetDisplay(1, soundIndex);
+                    if(soundIndex < 31 ) soundIndex++;
+                    else soundIndex = 0;
                 }
             break;
 

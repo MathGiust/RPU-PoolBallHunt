@@ -23,6 +23,7 @@ static Time::time_t lastModeTimerUpdateTime = 0;
 static Time::time_t lastSubModeTimerUpdateTime = 0;
 static Time::time_t lastLampAnimUpdateTime = 0;
 static Time::time_t lastAttractScoreUpdateTime = 0;
+static Time::time_t lastSoundPlayedTime = 0;
 
 //
 //  Get
@@ -64,6 +65,10 @@ Time::time_t Time::getLastLampAnimUpdateTime() {
 Time::time_t Time::getLastAttractScoreUpdateTime() {
     return lastAttractScoreUpdateTime;
 }
+Time::time_t Time::getLastSoundPlayedTime() {
+    return lastSoundPlayedTime;
+}
+
 
 //
 //  Update
@@ -105,6 +110,10 @@ void Time::updateLastLampAnimUpdateTime() {
 void Time::updateLastAttractScoreUpdateTime() {
     lastAttractScoreUpdateTime = currentTime;
 }
+void Time::updateLastSoundPlayedTime() {
+    lastSoundPlayedTime = currentTime;
+}
+
 
 //
 //  Reset

@@ -198,22 +198,31 @@ int manageDefaultScoringLogic(byte switchHit, MachineState& machineState) {
     case SW_COIN_2:
     case SW_COIN_3:
         machineState.manageCoinDrop(switchHit);
-        // RPU_PlaySoundDash51(0);
-        // RPU_PlaySoundDash32(26, true);
+        RPU_PlaySoundDash51(0);
         break;
     case SW_L_SPINNER:
         Scoring::increaseCurrentPlayerScore(10, machineState);
-        RPU_PlaySoundDash51(7);
+        RPU_PlaySoundDash51(DASH51_HIGH_PITCHED_MOD);
         break;
     case SW_CL_SPINNER:
-        if (machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) Scoring::increaseCurrentPlayerScore(300, machineState);
-        else Scoring::increaseCurrentPlayerScore(10, machineState);
-        RPU_PlaySoundDash51(16);
+        if (machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) {
+            Scoring::increaseCurrentPlayerScore(300, machineState);
+            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_2);
+        }
+        else {
+            Scoring::increaseCurrentPlayerScore(10, machineState);
+            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_2);
+        }
         break;
     case SW_CR_SPINNER:
-        if (!machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) Scoring::increaseCurrentPlayerScore(300, machineState);
-        else Scoring::increaseCurrentPlayerScore(10, machineState);
-        RPU_PlaySoundDash51(30);
+        if (!machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) {
+            Scoring::increaseCurrentPlayerScore(300, machineState);
+            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_3);
+        }
+        else {
+            Scoring::increaseCurrentPlayerScore(10, machineState);
+            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_3);
+        }
         break;
     case SW_LEFT_SLING:
     case SW_RIGHT_SLING:
@@ -232,13 +241,14 @@ int manageDefaultScoringLogic(byte switchHit, MachineState& machineState) {
     case SW_DROP_B:
     case SW_DROP_C:
     case SW_DROP_D:
-        RPU_PlaySoundDash51(5);
+        RPU_PlaySoundDash51(12);
         break;
     case SW_DUNK_SHOT:
         RPU_PlaySoundDash51(10);
+        break;
     }
 
-    if (RPU_ReadSingleSwitchState(SW_DROP_C) && RPU_ReadSingleSwitchState(SW_DROP_D)) RPU_PushToSolenoidStack(SOL_DROP_TARGET_RESET, SOL_DROP_RESET_STRENGTH);
+    if (RPU_ReadSingleSwitchState(SW_DROP_C) && RPU_ReadSingleSwitchState(SW_DROP_D)) RPU_PushToTimedSolenoidStack(SOL_DROP_TARGET_RESET, SOL_DROP_RESET_STRENGTH, Time::getCurrentTime() + 300);
 
     MachineState::setMostRecentSwitchHit(switchHit);
 

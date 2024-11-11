@@ -137,14 +137,13 @@ byte MachineState::restartGame() {
         RPU_SetDisplayBlank(1, 0);
         RPU_SetDisplayBlank(2, 0);
         RPU_SetDisplayBlank(3, 0);
-        SoundHelper::playSoundEffect(SOUND_EFFECT_GAME_START);
+        //SoundHelper::playSoundEffect(SOUND_EFFECT_GAME_START);
     }
     return MACHINE_STATE_INIT_GAMEPLAY;
 }
 byte MachineState::initGamePlay() {
     currentBallInPlay = 1;
     currentPlayerNumber = 0;
-
     return MACHINE_STATE_INIT_NEW_BALL;
 }
 byte MachineState::initNewBall(boolean currentStateChanged) {
@@ -263,7 +262,10 @@ byte MachineState::increaseCurrentPlayerNumber() {
             currentBallInPlay++;
             currentPlayerNumber = 0;
         }
-    } else currentPlayerNumber++;
+    } else {
+        currentPlayerNumber++;
+        RPU_PlaySoundDash51(26);
+    }
 
     currentPlayer = &players[currentPlayerNumber];
 

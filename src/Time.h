@@ -26,6 +26,7 @@ time_t getLastModeTimerUpdateTime();
 time_t getLastSubModeTimerUpdateTime();
 time_t getLastLampAnimUpdateTime();
 time_t getLastAttractScoreUpdateTime();
+time_t getLastSoundPlayedTime();
 
 void updateCurrentTime();
 void updateMostRecentSwitchHitTime();
@@ -39,6 +40,7 @@ void updateLastModeTimerUpdateTime();
 void updateLastSubModeTimerUpdateTime();
 void updateLastLampAnimUpdateTime();
 void updateLastAttractScoreUpdateTime();
+void updateLastSoundPlayedTime();
 
 void resetBallEnteredTroughTime();
 void resetLastOutholeKickTime();

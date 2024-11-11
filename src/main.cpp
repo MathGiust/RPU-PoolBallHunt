@@ -77,15 +77,9 @@ void setup() {
     DisplayHelper::showPlayerScore(3, RPU_OS_MINOR_VERSION);
 
     Time::updateCurrentTime();
-    //SoundHelper::playSoundEffect(SOUND_EFFECT_STARTUP);
-    delay(5000);
-    RPU_PlaySoundDash51(15);
-    /*
-    delay(1000);
-    RPU_PlaySoundDash51(27);
-    delay(1000);
-    RPU_PlaySoundDash51(27);
-    */
+    RPU_PlaySoundDash51(DASH51_BACKGROUND_STOP);
+    delay(20);
+    //RPU_PlaySoundDash51(DASH51_RS_RIFF_1);
 }
 
 void loop() {

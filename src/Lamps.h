@@ -15,7 +15,7 @@
 #include <Arduino.h>
 
 #define FLASH_PERIOD 100
-#define NUMBER_OF_LAMPS 59
+#define NUMBER_OF_LAMPS 60
 
 // Define Lamp Matrix
 #define LAMP_TERMINATOR 255 // Collection Terminator
@@ -25,15 +25,15 @@
 #define LAMP_BONUS_2K 1 // Bonus 2K
 #define LAMP_BONUS_3K 2 // Bonus 3K
 #define LAMP_BONUS_4K 3 // Bonus 4K
-#define LAMP_BONUS_5K 4 // Bonus 5K
 
-#define LAMP_BONUS_6K 4 // Bonus 6K
-#define LAMP_BONUS_7K 5 // Bonus 7K
-#define LAMP_BONUS_8K 6 // Bonus 8K
-#define LAMP_BONUS_9K 7 // Bonus 9K
+#define LAMP_BONUS_5K 4 // Bonus 5K
+#define LAMP_BONUS_6K 5 // Bonus 6K
+#define LAMP_BONUS_7K 6 // Bonus 7K
+#define LAMP_BONUS_8K 7 // Bonus 8K
+
 
 // Byte 1
-#define LAMP_NU 8           // Small 9
+#define LAMP_BONUS_9K 8 // Bonus 9K
 #define LAMP_DUNK_SHOT_5K 9       // Small 10
 #define LAMP_RIGHT_SPINNER_ADV 10 // Small 11
 #define LAMP_LEFT_SPINNER_ADV 11  // Small 12
