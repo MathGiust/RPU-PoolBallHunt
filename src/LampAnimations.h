@@ -27,6 +27,7 @@ namespace AnimationHelper {
 
 //   Functions
 void startLampAnimation(uint8_t animationNumber, Time::time_t animationDuration, Time::time_t startTime);
+bool getAnimationStatus(uint8_t animationNumber);
 void stopAnimation(uint8_t animationNumber);
 void stopAllAnimations();
 void updateAnimations(Time::time_t currentTime);

@@ -237,7 +237,7 @@ int manageDefaultScoringLogic(byte switchHit, MachineState& machineState) {
         RPU_PlaySoundDash51(DASH51_NOISE_BURST);
         break;
     case SW_GLOBE_SAUCER:
-        AnimationHelper::startLampAnimation(ANIM_CENTER_GLOBE, 1000, Time::getCurrentTime());
+        AnimationHelper::startLampAnimation(ANIM_CENTER_GLOBE, 1200, Time::getCurrentTime());
         RPU_PlaySoundDash51(DASH51_JINGLE_1);
         break;
     case SW_DROP_A:
@@ -251,7 +251,7 @@ int manageDefaultScoringLogic(byte switchHit, MachineState& machineState) {
         break;
     }
 
-    if (RPU_ReadSingleSwitchState(SW_DROP_C) && RPU_ReadSingleSwitchState(SW_DROP_D)) RPU_PushToTimedSolenoidStack(SOL_DROP_TARGET_RESET, SOL_DROP_RESET_STRENGTH, Time::getCurrentTime() + 300);
+    //if (RPU_ReadSingleSwitchState(SW_DROP_C) && RPU_ReadSingleSwitchState(SW_DROP_D)) RPU_PushToTimedSolenoidStack(SOL_DROP_TARGET_RESET, SOL_DROP_RESET_STRENGTH, Time::getCurrentTime() + 300);
 
     MachineState::setMostRecentSwitchHit(switchHit);
 
@@ -260,12 +260,20 @@ int manageDefaultScoringLogic(byte switchHit, MachineState& machineState) {
 
 // TODO Implement lights of specific game
 void manageLights(MachineState& machineState) {
-    if (machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) {
+    PlayerState* currentPlayer = machineState.getCurrentPlayer();
+    if (currentPlayer->getLeftSpinnerBonusAdvanceLit()) {
         LampsHelper::showLamp(LAMP_LEFT_SPINNER_ADV);
         LampsHelper::hideLamp(LAMP_RIGHT_SPINNER_ADV);
     } else {
         LampsHelper::hideLamp(LAMP_LEFT_SPINNER_ADV);
         LampsHelper::showLamp(LAMP_RIGHT_SPINNER_ADV);
+    }
+    if(!AnimationHelper::getAnimationStatus(ANIM_CENTER_GLOBE)) {
+        for(uint8_t currentGlobeLetter = 0; currentGlobeLetter < 6; currentGlobeLetter++) {
+            if(currentPlayer->globeLetters[currentGlobeLetter]) {
+                LampsHelper::showLampFromCollection(LAMP_COLL_CENTER_GLOBE, currentGlobeLetter, 0, 0);
+            } else LampsHelper::hideLampFromCollection(LAMP_COLL_CENTER_GLOBE, currentGlobeLetter);
+        }
     }
 }
 
