@@ -30,6 +30,9 @@ private:
     boolean modePlayed[NUMBER_OF_MODES];
     boolean modeQualified[NUMBER_OF_MODES];
 
+public:
+    PlayerState();
+
     // Harlem specific
     boolean gateLit;
     boolean leftSpinnerBonusAdvanceLit;
@@ -37,9 +40,6 @@ private:
     byte    superBonus;
     byte    leftSpinnerValue;
     byte    centerSpinnerAdv;
-
-public:
-    PlayerState();
 
     // Player initialize
     void resetPlayer();
@@ -79,7 +79,7 @@ public:
 
     boolean checkSuperBonus() const;
     boolean getGateLit() const;
-    void switchLitBonusAdvance();
+    void    switchLitBonusAdvance();
 
     // Getters
     byte getLeftSpinnerValue() const;
