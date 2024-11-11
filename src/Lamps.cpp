@@ -9,10 +9,10 @@
 
 #include "Lamps.h"
 
-#include "Arduino.h"
-#include "LampAnimations.h"
 #include "RPU.h"
 #include "RPU_Config.h"
+
+#include <Arduino.h>
 
 static byte* lampsPointer(byte lampCollection);
 static byte  getLampCollectionSize(byte lampCollectionNumber);

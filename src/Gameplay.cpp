@@ -12,6 +12,7 @@
 #include "Display.h"
 #include "GameModes.h"
 #include "Lamps.h"
+#include "LampAnimations.h"
 #include "PinballMachineBase.h"
 #include "RPU.h"
 #include "Scoring.h"
@@ -147,7 +148,7 @@ int runGameLoop(MachineState& machineState) {
     // TODO : Lights routine
     // Update Lights
     manageLights(machineState);
-
+    AnimationHelper::updateAnimations(Time::getCurrentTime());
     return returnState;
 }
 
@@ -202,46 +203,48 @@ int manageDefaultScoringLogic(byte switchHit, MachineState& machineState) {
         break;
     case SW_L_SPINNER:
         Scoring::increaseCurrentPlayerScore(10, machineState);
-        RPU_PlaySoundDash51(DASH51_HIGH_PITCHED_MOD);
+        RPU_PlaySoundDash51(DASH51_SNARE_NOISE);
         break;
     case SW_CL_SPINNER:
         if (machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) {
             Scoring::increaseCurrentPlayerScore(300, machineState);
-            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_2);
+            RPU_PlaySoundDash51(DASH51_HIGH_WHISTLE);
         }
         else {
             Scoring::increaseCurrentPlayerScore(10, machineState);
-            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_2);
+            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_1);
         }
         break;
     case SW_CR_SPINNER:
         if (!machineState.currentPlayer->getLeftSpinnerBonusAdvanceLit()) {
             Scoring::increaseCurrentPlayerScore(300, machineState);
-            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_3);
+            RPU_PlaySoundDash51(DASH51_HIGH_WHISTLE);
         }
         else {
             Scoring::increaseCurrentPlayerScore(10, machineState);
-            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_3);
+            RPU_PlaySoundDash51(DASH51_LOW_PITCH_DROP_1);
         }
         break;
     case SW_LEFT_SLING:
     case SW_RIGHT_SLING:
         machineState.currentPlayer->switchLitBonusAdvance();
-        RPU_PlaySoundDash51(9);
+        RPU_PlaySoundDash51(DASH51_SHORT_LOW_DRONE);
         break;
     case SW_BOTTOM_BUMPER:
     case SW_RIGHT_BUMPER:
     case SW_LEFT_BUMPER:
         machineState.currentPlayer->switchLitBonusAdvance();
-        RPU_PlaySoundDash51(32);
+        RPU_PlaySoundDash51(DASH51_NOISE_BURST);
         break;
     case SW_GLOBE_SAUCER:
-        RPU_PlaySoundDash51(4);
+        AnimationHelper::startLampAnimation(ANIM_CENTER_GLOBE, 1000, Time::getCurrentTime());
+        RPU_PlaySoundDash51(DASH51_JINGLE_1);
+        break;
     case SW_DROP_A:
     case SW_DROP_B:
     case SW_DROP_C:
     case SW_DROP_D:
-        RPU_PlaySoundDash51(12);
+        RPU_PlaySoundDash51(DASH51_SYNC_NOISE_1);
         break;
     case SW_DUNK_SHOT:
         RPU_PlaySoundDash51(10);
