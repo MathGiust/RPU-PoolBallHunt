@@ -103,6 +103,7 @@ public:
     boolean getMachineStateChanged() const;
     boolean getPlayfieldValidated() const;
     boolean getCurrentScoreFlashing() const;
+    PlayerState* getCurrentPlayer() const;
 
 
     static void setMostRecentSwitchHit(byte switchHit);

@@ -243,6 +243,10 @@ byte MachineState::getCurrentPlayerNumber() const {
 boolean MachineState::getCurrentScoreFlashing() const {
     return currentScoreFlashing;
 }
+PlayerState* MachineState::getCurrentPlayer() const {
+    return currentPlayer;
+}
+
 
 //
 // Game specific :
